@@ -45,14 +45,12 @@ app.post("/new", async (req, res) => {
 //Register new User
 app.post("/register", async (req, res) => {
   try {
-    const { OTP, email, organization } = req.body;
+    const { OTP, email } = req.body;
     const user = await User.findOne({ email });
     if (user.OTP != +OTP) {
       return res.send({ message: "Incorrect OTP" });
     }
-    const allUsers = await User.find({ organization });
-    const task = await Task.find({ organization });
-    const sprint = await Sprint.find({ organization });
+
     const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET, {
       expiresIn: process.env.JWT_EXPIRE,
     });
@@ -60,9 +58,6 @@ app.post("/register", async (req, res) => {
       message: "user registered successfully",
       token,
       user,
-      task,
-      sprint,
-      allUsers,
     });
   } catch (error) {
     return res.status(404).send({ message: "error" });
@@ -76,9 +71,6 @@ app.post("/googleregister", async (req, res) => {
     const getUser = await User.findOne({ email });
     if (getUser) {
       await User.findByIdAndUpdate(getUser._id, { avatar });
-      const allUsers = await User.find({ organization: getUser.organization });
-      const task = await Task.find({ organization: getUser.organization });
-      const sprint = await Sprint.find({ organization: getUser.organization });
       const token = jwt.sign({ _id: getUser._id }, process.env.JWT_SECRET, {
         expiresIn: process.env.JWT_EXPIRE,
       });
@@ -86,15 +78,9 @@ app.post("/googleregister", async (req, res) => {
         message: "user registered successfully",
         token,
         user: getUser,
-        task,
-        sprint,
-        allUsers,
       });
     }
     const user = await User.create({ ...req.body });
-    const allUsers = await User.find({ organization: "default" });
-    const task = await Task.find({ organization: "default" });
-    const sprint = await Sprint.find({ organization: "default" });
     const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET, {
       expiresIn: process.env.JWT_EXPIRE,
     });
@@ -102,9 +88,6 @@ app.post("/googleregister", async (req, res) => {
       message: "user registered successfully",
       token,
       user,
-      task,
-      sprint,
-      allUsers,
     });
   } catch (error) {
     return res.status(404).send({ message: "error" });
@@ -151,7 +134,7 @@ app.post("/login", async (req, res) => {
 app.get("/", async (req, res) => {
   const { organization } = req.query;
   try {
-    const user = await User.find({ organization });
+    const user = await User.find();
     return res.status(200).send({ success: true, user });
   } catch (error) {
     return res.status(404).send({ message: error.message });

@@ -14,10 +14,6 @@ const userSchema = new mongoose.Schema(
       unique: true,
       validate: validator.isEmail,
     },
-    organization: {
-      type: String,
-      default: "default",
-    },
     OTP: {
       type: Number,
     },
