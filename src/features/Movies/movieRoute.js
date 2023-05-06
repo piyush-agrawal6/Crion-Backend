@@ -76,7 +76,7 @@ app.get("/single", async (req, res) => {
       return res.send({ message: "error" });
     }
   } catch (error) {
-    return res.status(404).send({ message: error });
+    return res.status(404).send({ message: "error" });
   }
 });
 
