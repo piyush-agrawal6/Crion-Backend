@@ -5,7 +5,34 @@ const app = express.Router();
 //fetch all movies
 app.get("/", async (req, res) => {
   try {
-    const movies = await Movie.find();
+    let { keyword, sort, orderBy, limit, page } = req.query;
+
+    const query = {};
+
+    if (keyword) {
+      query.title = {
+        $regex: keyword,
+        $options: "i",
+      };
+    }
+
+    if (!orderBy) {
+      orderBy = "asc";
+    }
+
+    if (!limit) {
+      limit = 10;
+    }
+
+    if (!page) {
+      page = 1;
+    }
+
+    const movies = await Movie.find(query)
+      .sort({ [sort]: orderBy === "asc" ? 1 : orderBy === "desc" ? -1 : 0 })
+      .limit(+limit)
+      .skip((+page - 1) * limit);
+
     return res.status(200).send({ movies });
   } catch (error) {
     return res.status(404).send({ message: "error" });
