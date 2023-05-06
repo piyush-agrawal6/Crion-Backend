@@ -70,7 +70,11 @@ app.get("/single", async (req, res) => {
   try {
     const id = req.query.id;
     const movieItem = await Movie.findById(id);
-    return res.status(200).send({ movieItem });
+    if (movieItem) {
+      return res.status(200).send({ message: `success`, movieItem });
+    } else {
+      return res.send({ message: "error" });
+    }
   } catch (error) {
     return res.status(404).send({ message: error });
   }
