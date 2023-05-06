@@ -10,7 +10,19 @@ app.get("/", async (req, res) => {
     const query = {};
 
     if (keyword) {
-      query.title = {
+      query.Title = {
+        $regex: keyword,
+        $options: "i",
+      };
+      query.Year = {
+        $regex: keyword,
+        $options: "i",
+      };
+      query.Director = {
+        $regex: keyword,
+        $options: "i",
+      };
+      query.Genre = {
         $regex: keyword,
         $options: "i",
       };
