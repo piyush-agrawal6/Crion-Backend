@@ -47,7 +47,7 @@ app.get("/", async (req, res) => {
 
     return res.status(200).send({ movies });
   } catch (error) {
-    return res.status(404).send({ message: "error" });
+    return res.status(404).send({ message: error });
   }
 });
 
