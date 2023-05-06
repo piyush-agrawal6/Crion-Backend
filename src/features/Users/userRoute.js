@@ -1,6 +1,4 @@
 const User = require("./userModel");
-const Task = require("../Tasks/taskModel");
-const Sprint = require("../Movies/sprintModel");
 const express = require("express");
 const app = express.Router();
 const jwt = require("jsonwebtoken");
