@@ -14,10 +14,9 @@ app.get("/", async (req, res) => {
         $regex: keyword,
         $options: "i",
       };
-      // query.Year = {
-      //   $regex: keyword,
-      //   $options: "i",
-      // };
+      query.Year = {
+        $regex: keyword,
+      };
       // query.Director = {
       //   $regex: keyword,
       //   $options: "i",
