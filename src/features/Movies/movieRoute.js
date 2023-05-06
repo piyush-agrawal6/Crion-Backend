@@ -65,6 +65,17 @@ app.delete("/delete", async (req, res) => {
   }
 });
 
+//get single movie
+app.get("/single", async (req, res) => {
+  try {
+    const id = req.query.id;
+    const movieItem = await Movie.findById(id);
+    return res.status(200).send({ movieItem });
+  } catch (error) {
+    return res.status(404).send({ message: error });
+  }
+});
+
 //update movies
 app.put("/update", async (req, res) => {
   let { id, data } = req.body;
