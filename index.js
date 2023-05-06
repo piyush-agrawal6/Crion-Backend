@@ -17,13 +17,11 @@ app.use(cors());
 
 //routes imports
 const userRoutes = require("./src/features/Users/userRoute");
-const taskRoutes = require("./src/features/Tasks/taskRoute");
-const sprintRoutes = require("./src/features/Sprints/sprintRoute");
+const movieRoutes = require("./src/features/Movies/movieRoute");
 
 //routes
 app.use("/user", userRoutes);
-app.use("/task", taskRoutes);
-app.use("/sprint", sprintRoutes);
+app.use("/movie", movieRoutes);
 
 //listening
 app.listen(process.env.PORT, async () => {
