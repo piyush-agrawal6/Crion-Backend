@@ -7,26 +7,26 @@ app.get("/", async (req, res) => {
   try {
     let { keyword, sort, orderBy, limit, page } = req.query;
 
-    const query = {};
+    // const query = {};
 
-    if (keyword) {
-      query.Title = {
-        $regex: keyword,
-        $options: "i",
-      };
-      // query.Year = {
-      //   $regex: keyword,
-      //   $options: "i",
-      // };
-      // query.Director = {
-      //   $regex: keyword,
-      //   $options: "i",
-      // };
-      // query.Genre = {
-      //   $regex: keyword,
-      //   $options: "i",
-      // };
-    }
+    // if (keyword) {
+    //   query.Title = {
+    //     $regex: keyword,
+    //     $options: "i",
+    //   };
+    //   // query.Year = {
+    //   //   $regex: keyword,
+    //   //   $options: "i",
+    //   // };
+    //   // query.Director = {
+    //   //   $regex: keyword,
+    //   //   $options: "i",
+    //   // };
+    //   // query.Genre = {
+    //   //   $regex: keyword,
+    //   //   $options: "i",
+    //   // };
+    // }
 
     if (!orderBy) {
       orderBy = "asc";
@@ -40,7 +40,7 @@ app.get("/", async (req, res) => {
       page = 1;
     }
 
-    const movies = await Movie.find(query)
+    const movies = await Movie.find()
       .sort({ [sort]: orderBy === "asc" ? 1 : orderBy === "desc" ? -1 : 0 })
       .limit(+limit)
       .skip((+page - 1) * limit);
