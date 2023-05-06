@@ -42,7 +42,8 @@ app.delete("/delete", async (req, res) => {
 app.put("/update", async (req, res) => {
   let { id, data } = req.body;
   try {
-    let movie = await Movie.findByIdAndUpdate(id, data);
+    await Movie.findByIdAndUpdate(id, data);
+    let movie = await Movie.findById(id);
     return res
       .status(200)
       .send({ message: "Movie updated successfully", movie });
