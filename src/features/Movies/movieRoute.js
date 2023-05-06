@@ -14,18 +14,18 @@ app.get("/", async (req, res) => {
         $regex: keyword,
         $options: "i",
       };
-      query.Year = {
-        $regex: keyword,
-        $options: "i",
-      };
-      query.Director = {
-        $regex: keyword,
-        $options: "i",
-      };
-      query.Genre = {
-        $regex: keyword,
-        $options: "i",
-      };
+      // query.Year = {
+      //   $regex: keyword,
+      //   $options: "i",
+      // };
+      // query.Director = {
+      //   $regex: keyword,
+      //   $options: "i",
+      // };
+      // query.Genre = {
+      //   $regex: keyword,
+      //   $options: "i",
+      // };
     }
 
     if (!orderBy) {
